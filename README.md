@@ -1,91 +1,134 @@
-# AWS and Linux DevOps Script Library
+# AWS DevOps Scripts for Automation, Monitoring and Security
 
-Welcome to the AWS and Linux DevOps Script Library. This repository contains a curated collection of Shell and Python scripts designed to automate, monitor, and secure your AWS infrastructure and Linux servers.
+This library is maintained by [Intuz](https://www.intuz.com) — an AI-first software development company specializing in [Cloud](https://www.intuz.com/cloud)
+and [DevOps solutions](https://www.intuz.com/agile-devops-services).
+<br><br>
 
-All scripts are written with best practices in mind, avoiding hardcoded credentials, and are ready to be seamlessly integrated into your daily DevOps workflows.
+This repository contains a curated collection of Shell and Python scripts to automate, monitor, and secure AWS infrastructure and Linux servers.
+
+All scripts follow DevOps best practices, avoid hardcoded credentials, and are designed to integrate easily into production environments.
+
+## What This Repository Helps You Achieve
+
+Managing AWS and Linux environments often involves repetitive scripting, cost tracking, security checks, and operational firefighting.
+
+This repository helps you:
+
+- Automate routine DevOps and cloud operations
+- Reduce AWS costs across S3, RDS, and CloudWatch
+- Improve security with IAM audits and access controls
+- Monitor infrastructure health and system performance
+- Respond faster to incidents with ready-to-use scripts
+
+Instead of building scripts from scratch, you can use this collection to standardize and scale your operations.
+
+## What You’ll Find Here
+
+A practical collection of AWS and Linux automation scripts built for real-world DevOps use cases.
+
+### Key Features
+- AWS automation scripts for S3, RDS, IAM, EC2, and CloudWatch
+- Linux server monitoring and maintenance scripts
+- Cost optimization and cleanup utilities
+- Security auditing and compliance checks
+- Production-ready and easy to customize
 
 ## Repository Structure
 
-The scripts are organized into categories based on the service they interact with:
+Scripts are organized by AWS services and system operations.
 
-### 1. s3/ - Amazon S3 Management
-- s3-public-access-audit.sh - Scans all buckets for public access and optionally auto-fixes them.
-- s3-sync-buckets.sh - Syncs items across buckets (supports cross-region and dry-runs).
-- s3-bucket-size-report.sh - Generates a report showing total sizes and object counts for all buckets.
-- s3-empty-and-delete-bucket.sh - Safely purges all objects and versions before deleting a bucket.
-- s3-presign-url.sh - Generates secure, temporary download URLs for private S3 objects.
-- s3-enable-versioning.sh - Mass-enables versioning for compliance.
-- s3-lifecycle-apply.sh - Applies a standard tiered lifecycle storage policy to reduce costs.
+### s3/ - Amazon S3 Automation Scripts
+- s3-public-access-audit.sh - Detect and fix public bucket access
+- s3-sync-buckets.sh - Sync data across buckets and regions
+- s3-bucket-size-report.sh - Analyze bucket size and usage
+- s3-empty-and-delete-bucket.sh - Safely delete buckets with versions
+- s3-presign-url.sh - Generate secure temporary access URLs
+- s3-enable-versioning.sh - Enable versioning across buckets
+- s3-lifecycle-apply.sh - Apply lifecycle rules for cost optimization
 
-### 2. rds/ - Amazon RDS Management
-- rds-instance-status-report.sh - Provides a clean table of all database engines, sizes, and Multi-AZ status.
-- rds-snapshot-report.sh - Analyzes snapshot ages and highlights those wasting storage.
-- rds-auto-snapshot-cleanup.sh - Deletes manual snapshots older than N days to manage costs.
-- rds-start-stop.sh - Starts or stops single/multiple RDS instances asynchronously.
-- get_rds_top_sql_queries.sh / rds_top_sql_to_jira.sh - Extracts slow/bloated queries and auto-posts them to Jira.
-- rds-connection-alert.sh - Monitors DB connection overhead and sends an SNS alert if thresholds are met.
+### rds/ - Amazon RDS Automation Scripts
+- rds-instance-status-report.sh - View database status and configuration
+- rds-snapshot-report.sh - Identify unused snapshots
+- rds-auto-snapshot-cleanup.sh - Remove outdated snapshots
+- rds-start-stop.sh - Start or stop RDS instances in bulk
+- get_rds_top_sql_queries.sh / rds_top_sql_to_jira.sh - Detect slow queries and log to Jira
+- rds-connection-alert.sh - Monitor and alert on DB connections
 
-### 3. iam/ - Identity and Access Management
-- iam-user-report.sh - Reports all users, their creation date, last login, and associated keys.
-- iam-access-key-audit.sh - Audits Access Keys for age and inactivity, firing SNS alerts for overdue rotations.
-- iam-mfa-audit.sh - Flags and reports users without MFA enabled.
-- iam-inactive-user-cleanup.sh - Checks for inactive users, disables their console access, and invalidates keys.
-- iam-role-policy-report.sh - Catalogs IAM roles along with their inline and managed policies.
-- iam-rotate-access-key.sh - Safely provides new keys while keeping the old ones active temporarily for smooth application transition.
-- iam-policy-wildcard-audit.sh - Finds risky custom policies with Action: * or Resource: *.
+### iam/ - AWS IAM Security Scripts
+- iam-user-report.sh - Audit users and access keys
+- iam-access-key-audit.sh - Detect unused or old keys
+- iam-mfa-audit.sh - Identify users without MFA
+- iam-inactive-user-cleanup.sh - Disable inactive users
+- iam-role-policy-report.sh - Review IAM roles and permissions
+- iam-rotate-access-key.sh - Rotate access keys safely
+- iam-policy-wildcard-audit.sh - Detect overly permissive policies
 
-### 4. cloudwatch/ - Telemetry and Monitoring
-- cw-cost-estimate.sh - Analyzes stored logs to estimate monthly CloudWatch costs.
-- cw-set-log-retention.sh - Implements a unified retention policy for log groups natively preventing runaway storage expansion.
-- cw-export-logs-to-s3.sh - Automates the export of CloudWatch Logs to S3 for long-term cold storage.
-- setup_cloudwatch_agent.sh - Quickly bootstraps the amazon-cloudwatch-agent on generic Linux servers.
+### cloudwatch/ - Monitoring and Cost Optimization
+- cw-cost-estimate.sh - Estimate CloudWatch logging costs
+- cw-set-log-retention.sh - Apply retention policies
+- cw-export-logs-to-s3.sh - Export logs to S3 for storage
+- setup_cloudwatch_agent.sh - Install and configure monitoring agent
 
-### 5. linux-server/ - OS-Level Operations
-- linux-system-health-report.sh - Displays a quick server snapshot including CPU, Memory, Disk, Load, and failing Systemd units.
-- linux-disk-cleanup.sh - Automatically frees space by purging old caches, logs, temp files, and unused containers.
-- linux-cache-manager.sh - Non-destructively cycles OS-level RAM cache limits.
-- linux-memory-alert.sh and linux-disk-alert.sh - Lightweight cron-based monitors that SNS alert when Memory/Disk cross safe boundaries.
-- linux-service-monitor.sh - Auto-restarts failed Systemd services (e.g. pm2, nginx) and immediately alerts the team.
-- linux-user-audit.sh - Finds risky local user accounts (e.g. empty passwords, unchecked sudo privileges).
-- setup_swap_memory.sh - Implements and mounts Swap memory gracefully for low-tier instancing.
+### linux-server/ - Linux Automation and Monitoring
+- linux-system-health-report.sh - Check CPU, memory, disk, and load
+- linux-disk-cleanup.sh - Clean unused files and free space
+- linux-cache-manager.sh - Optimize memory usage
+- linux-memory-alert.sh / linux-disk-alert.sh - Alert on resource limits
+- linux-service-monitor.sh - Restart failed services automatically
+- linux-user-audit.sh - Audit users and permissions
+- setup_swap_memory.sh - Configure swap memory
 
-### 6. ec2-ami/ - Compute Image Backups
-- backup_ami_to_s3.sh - Exports AMIs into static .bin files directly to AWS S3.
-- import_ami_from_s3.sh - Restores exported AMI backups from S3 into functional EC2 Images.
-
----
+### ec2-ami/ - EC2 Backup and Migration
+- backup_ami_to_s3.sh - Export AMIs to S3
+- import_ami_from_s3.sh - Restore AMIs from S3
 
 ## Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/aws-devops-scripts.git
-   cd aws-devops-scripts
-   ```
+### Clone the Repository
+```bash
+git clone https://github.com/yourusername/aws-devops-scripts.git
+cd aws-devops-scripts
+```
 
-2. Make scripts executable:
-   ```bash
-   chmod +x */*.sh
-   ```
+### Make Scripts Executable
+```bash
+chmod +x */*.sh
+```
 
-3. Prerequisites:
-   Many of these tools interface directly with the AWS API. Ensure you have the `aws-cli` and `jq` installed on your machine.
-   ```bash
-   # Debian/Ubuntu
-   sudo apt-get install awscli jq
-   
-   # Confirm Configuration
-   aws configure
-   ```
+### Install Dependencies
+```bash
+# Debian/Ubuntu
+sudo apt-get install awscli jq
+```
 
-4. Variables and Placeholders:
-   No hard-coded credentials exist within this repository (keys, emails, etc., have been standardized to your-variable). Before running a script (especially those connecting to SNS or Jira), edit the top lines to match your specific ARNs and endpoints.
+### Configure AWS CLI
+```bash
+aws configure
+```
 
----
+## Configuration Notes
+- No credentials are hardcoded
+- Update placeholders such as ARNs, emails, and endpoints
+- Review scripts before using in production
 
-## Contributing
-Contributions, issues, and feature requests are welcome! 
-Feel free to check issues page to propose new additions. 
+## About Intuz
 
-## License
-This project is licensed under the MIT License - open for full scale business/personal adoption.
+Intuz helps companies design, build, and scale cloud infrastructure with a strong focus on DevOps, automation, and cost optimization.
+
+If you are looking to:
+- Optimize your AWS costs
+- Improve DevOps processes
+- Build scalable cloud architecture
+- Automate infrastructure and operations
+
+You can reach out to the Intuz team for consulting and implementation support.
+
+# License
+
+Copyright (c) 2026 Intuz Solutions Pvt Ltd.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+![Alt text](./screenshots/logo.jpg?raw=true "Intuz logo")

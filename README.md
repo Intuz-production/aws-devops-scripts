@@ -133,5 +133,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <h1></h1>
 <a href="http://www.intuz.com">
-<img src="Screenshots/Logo3.jpg">
+<img src="Screenshots/Logo3.png">
 </a>

@@ -1,7 +1,7 @@
 # AWS DevOps Scripts for Automation, Monitoring and Security
 
-This library is maintained by [Intuz](https://www.intuz.com) — an AI-first software development company specializing in [Cloud](https://www.intuz.com/cloud)
-and [DevOps solutions](https://www.intuz.com/agile-devops-services).
+This library is maintained by [Intuz](https://www.intuz.com) — an AI-first software development company specializing in [AWS Cloud Consulting](https://www.intuz.com/cloud)
+and [DevOps Services](https://www.intuz.com/agile-devops-services).
 <br><br>
 
 This repository contains a curated collection of Shell and Python scripts to automate, monitor, and secure AWS infrastructure and Linux servers.
